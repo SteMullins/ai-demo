@@ -3,6 +3,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $board = $_POST['board'];
     $playerMove = $_POST['move'];
     $llmEndpoint = 'https://172.23.144.22/api/v1/chat/completions'; // Replace with your LLM API endpoint
+    $apiKey = 'ccd7a87c-70cd-419c-b1b0-a0ddd0583415';
 
     // Convert the board array to a format suitable for the LLM API
     $payload = json_encode([
@@ -17,8 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json',
+        'Authorization: Bearer ' . $apiKey, // Add the Authorization header
+        'accept: application/json' 
     ]);
-
     $response = curl_exec($ch);
     curl_close($ch);
 
